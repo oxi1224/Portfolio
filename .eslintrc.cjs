@@ -1,15 +1,19 @@
 module.exports = {
   root: true,
   parser: "@typescript-eslint/parser",
-  extends: ["eslint:recommended", "next/core-web-vitals", "plugin:prettier/recommended"],
+  extends: [
+    "eslint:recommended",
+    "next/core-web-vitals",
+    "plugin:prettier/recommended"
+  ],
   plugins: ["@typescript-eslint"],
   ignorePatterns: ["*.cjs"],
   parserOptions: {
     sourceType: "module",
-    ecmaVersion: "latest",
+    ecmaVersion: "latest"
   },
   globals: {
-    React: true,
+    React: true
   },
   env: {
     browser: true,
@@ -33,7 +37,10 @@ module.exports = {
     "no-lonely-if": "error",
     "no-multi-spaces": "error",
     "no-multiple-empty-lines": ["error", { max: 2, maxEOF: 1, maxBOF: 0 }],
-    "@typescript-eslint/no-shadow": ["error", { allow: ["err", "resolve", "reject"] }],
+    "@typescript-eslint/no-shadow": [
+      "error",
+      { allow: ["err", "resolve", "reject"] }
+    ],
     "no-var": "error",
     "object-curly-spacing": ["error", "always"],
     "prefer-const": "error",
@@ -53,13 +60,14 @@ module.exports = {
     "space-unary-ops": "error",
     "spaced-comment": "error",
     yoda: "error",
+    "max-len": ["error", { code: 80, ignoreStrings: true }],
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": [
       "warn",
       {
-        "argsIgnorePattern": "_",
-        "varsIgnorePattern": "_",
-        "caughtErrorsIgnorePattern": "_"
+        argsIgnorePattern: "_",
+        varsIgnorePattern: "_",
+        caughtErrorsIgnorePattern: "_"
       }
     ],
     "@typescript-eslint/no-explicit-any": "off",

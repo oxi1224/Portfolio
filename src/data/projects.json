@@ -1,0 +1,22 @@
+[
+  {
+    "name": "keydrop-simulator",
+    "githubUrl": "https://github.com/whatever",
+    "description": "asdasd",
+    "featuredTag": { "name": "ts", "iconUrl": "/icons/typescript.svg" },
+    "languageTags": [
+      { "name": "cpp", "iconUrl": "/icons/cpp.png" },
+      { "name": "ts", "iconUrl": "/icons/typescript.svg" }
+    ]
+  },
+  {
+    "name": "WebCMD",
+    "githubUrl": "https://github.com/whatever",
+    "description": "asdasd",
+    "featuredTag": { "name": "cpp", "iconUrl": "/icons/cpp.png" },
+    "languageTags": [
+      { "name": "cpp", "iconUrl": "/icons/cpp.png" },
+      { "name": "ts", "iconUrl": "/icons/typescript.svg" }
+    ]
+  }
+]

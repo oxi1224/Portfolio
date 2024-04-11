@@ -1,4 +1,4 @@
-import { RedirectData } from "@lib";
+import { ProjectData, RedirectData } from "@lib";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -6,12 +6,13 @@ import { useState } from "react";
 interface Props {
   openPages: RedirectData[];
   setOpenPages: (data: RedirectData[]) => void;
+  projectData: ProjectData[];
 }
 
-export function Sidebar({ openPages, setOpenPages }: Props) {
+export function Sidebar({ openPages, setOpenPages, projectData }: Props) {
   return (
     <>
-      <ul className="flex flex-col justify-start w-1/4 h-svh bg-stone-900 text-sm pt-2 select-none">
+      <ul className="flex flex-col justify-start w-1/4 h-screen bg-stone-900 text-sm pt-2 select-none">
         <li className="flex flex-row justify-start cursor-pointer pl-2 hover:bg-opacity-25 hover:bg-gray-400">
           <Image
             src="/icons/placeholder.png"
@@ -22,13 +23,17 @@ export function Sidebar({ openPages, setOpenPages }: Props) {
           />
           <div className="ml-1">test</div>
         </li>
-        <Folder openPages={openPages} setOpenPages={setOpenPages} />
+        <Folder
+          projectData={projectData}
+          openPages={openPages}
+          setOpenPages={setOpenPages}
+        />
       </ul>
     </>
   );
 }
 
-function Folder({ openPages, setOpenPages }: Props) {
+function Folder({ openPages, setOpenPages, projectData }: Props) {
   const [open, setOpen] = useState(false);
   const router = useRouter();
 
@@ -36,23 +41,24 @@ function Folder({ openPages, setOpenPages }: Props) {
     setOpen(!open);
   }
 
-  function addOpenPage(data: RedirectData) {
-    if (openPages.find((d) => d.redirectUrl === data.redirectUrl)) return;
+  function addOpenPage(data: ProjectData) {
+    const redirectData: RedirectData = {
+      redirectUrl: "/project/" + data.name,
+      iconUrl: data.featuredTag.iconUrl,
+      title: data.name
+    };
+    if (openPages.find((d) => d.redirectUrl === redirectData.redirectUrl))
+      return;
     const newPages = openPages;
-    newPages.push(data);
+    newPages.push(redirectData);
     setOpenPages(newPages);
-    router.push(data.redirectUrl);
+    router.push(redirectData.redirectUrl);
   }
 
-  const propData: RedirectData[] = [
-    { iconUrl: "/icons/typescript.svg", title: "Project 1", redirectUrl: "/temp" },
-    { iconUrl: "/icons/cpp-logo.png", title: "Project 2", redirectUrl: "/temp2" }
-  ];
-
-  const folderContents: React.JSX.Element[] = propData.map((data, i) => (
+  const folderContents: React.JSX.Element[] = projectData.map((data, i) => (
     <li key={i}>
       <a
-        href={data.redirectUrl}
+        href={"/" + data.name}
         onClick={(e) => {
           e.preventDefault();
           addOpenPage(data);
@@ -60,13 +66,13 @@ function Folder({ openPages, setOpenPages }: Props) {
         className="flex flex-row justify-start cursor-pointer pl-[12.5%] hover:bg-opacity-25 hover:bg-gray-400"
       >
         <Image
-          src={data.iconUrl}
-          alt="project-icon"
+          src={data.featuredTag.iconUrl}
+          alt={data.featuredTag.name}
           width={20}
           height={20}
           className="aspect-square object-scale-down"
         />
-        <div className="ml-1">{data.title}</div>
+        <div className="ml-1">{data.name}</div>
       </a>
     </li>
   ));
