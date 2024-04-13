@@ -41,7 +41,7 @@ export function Openfiles({ openPages, setOpenPages }: Props) {
           <Link
             key={i}
             href={data.redirectUrl}
-            className={`flex flex-row py-1 px-2 ${pathname === data.redirectUrl ? "bg-stone-800" : "bg-stone-700"} bg-opacity-65 w-fit cursor-pointer  border-r border-stone-700 border-opacity-90`}
+            className={`group flex flex-row py-1 px-2 ${pathname === data.redirectUrl ? "bg-stone-800" : "bg-stone-700"} bg-opacity-65 w-fit cursor-pointer  border-r border-stone-700 border-opacity-90`}
           >
             <Image
               src={data.iconUrl}
@@ -52,6 +52,11 @@ export function Openfiles({ openPages, setOpenPages }: Props) {
             />
             <div className="px-1.5">{data.title}</div>
             <button
+              className={
+                pathname === data.redirectUrl
+                  ? ""
+                  : "opacity-0 group-hover:opacity-100"
+              }
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();

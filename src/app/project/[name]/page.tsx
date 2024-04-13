@@ -15,17 +15,97 @@ interface Props {
   params: { name: string };
 }
 
-export default async function Page({ params }: Props) {
-  const projectData = (await preload(params.name))?.data;
-
-  if (!projectData) {
+export default async function ProjectPage({ params }: Props) {
+  const data = (await preload(params.name))?.data;
+  if (!data) {
     return <div>Not found</div>;
   }
   return (
-    <div className="flex flex-row object-scale-down h-10">
-      {projectData.languageTags.map((d, i) => (
-        <Image key={i} src={d.iconUrl} alt={d.name} width={40} height={20} />
-      ))}
+    <div className="p-3 max-h-full overflow-scroll">
+      <div className="flex items-center flex-col">
+        <h2 className="text-center text-2xl mb-3 relative">
+          {data.title}
+          {data.liveUrl ? (
+            <div className="group select-none bg-stone-700 bg-opacity-65 hover:bg-stone-600 cursor-pointer absolute -right-4 -top-2 text-2xs rounded-full border-2 border-stone-600 w-4 h-4 leading-relaxed">
+              <span>?</span>
+              <div className="group absolute hidden group-hover:flex flex-row items-center top-0 left-1/2 cursor-default">
+                <div className="h-full w-3"></div>
+                <div className="bg-stone-800 p-1 whitespace-pre">
+                  <p>Live website preview is available!</p>
+                  <a
+                    className="w-fit px-2 py-1 bg-stone-700 hover:bg-opacity-65 mt-0.5 inline-block rounded-sm"
+                    href={data.liveUrl}
+                    target="_blank"
+                  >
+                    redirect
+                  </a>
+                </div>
+              </div>
+            </div>
+          ) : null}
+        </h2>
+        {data.thumbnail ? (
+          <Image
+            className="w-1/4 h-auto"
+            src={data.thumbnail}
+            alt="thumbanil"
+            width={500}
+            height={500}
+          />
+        ) : null}
+      </div>
+      <div className="flex flex-col items-center justify-center gap-2">
+        {data.liveUrl ? <div></div> : null}
+        <h4 className="w-fit underline">Featured tags</h4>
+        <div className="flex flex-row gap-1">
+          {data.languageTags.map((d, i) => (
+            <div
+              key={i}
+              className="bg-stone-500 bg-opacity-65 w-full h-full object rounded-sm"
+            >
+              <Image
+                className="aspect-square w-auto h-auto max-w-full max-h-full"
+                src={d.iconUrl}
+                alt={d.name}
+                width={50}
+                height={50}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="flex flex-col justify-center text-center mt-2">
+        {parseDescription(data)}
+      </div>
     </div>
   );
+}
+
+const attachmentRegex = /attach:[a-zA-Z]+/;
+function parseDescription(data: ProjectData) {
+  const lines = data.description.split("\n");
+  const nodes: React.ReactNode[] = [];
+
+  for (const i in lines) {
+    const line = lines[i];
+    const separated = line.split(/[{}]/);
+    const mappedLine = separated.map((str, j) => {
+      if (!attachmentRegex.test(str)) return str;
+      const id = str.split(":")[1];
+      const attachment = data.attachments[id];
+      if (!attachment) return str;
+      return (
+        <Image
+          className="project-desc-attachment"
+          key={j}
+          src={attachment.url}
+          alt={attachment.alt}
+          width={attachment.width}
+          height={attachment.height}
+        />
+      );
+    });
+    nodes.push(<p key={i}>{mappedLine}</p>);
+  }
+  return nodes;
 }

@@ -12,8 +12,9 @@ interface Props {
 export function Sidebar({ openPages, setOpenPages, projectData }: Props) {
   return (
     <>
-      <ul className="flex flex-col justify-start w-1/4 h-screen bg-stone-900 text-sm pt-2 select-none">
-        <li className="flex flex-row justify-start cursor-pointer pl-2 hover:bg-opacity-25 hover:bg-gray-400">
+      <ul className="flex flex-col justify-start w-1/6 h-full bg-stone-900 text-sm pt-2 select-none">
+        {/* eslint-disable-next-line max-len */}
+        {/* <li className="flex flex-row justify-start cursor-pointer pl-2 hover:bg-opacity-25 hover:bg-gray-400">
           <Image
             src="/icons/placeholder.png"
             alt="redirect-icon"
@@ -22,7 +23,7 @@ export function Sidebar({ openPages, setOpenPages, projectData }: Props) {
             className="aspect-square object-scale-down"
           />
           <div className="ml-1">test</div>
-        </li>
+        </li> */}
         <Folder
           projectData={projectData}
           openPages={openPages}
@@ -45,10 +46,12 @@ function Folder({ openPages, setOpenPages, projectData }: Props) {
     const redirectData: RedirectData = {
       redirectUrl: "/project/" + data.name,
       iconUrl: data.featuredTag.iconUrl,
-      title: data.name
+      title: data.title
     };
-    if (openPages.find((d) => d.redirectUrl === redirectData.redirectUrl))
+    if (openPages.find((d) => d.redirectUrl === redirectData.redirectUrl)) {
+      router.push(redirectData.redirectUrl);
       return;
+    }
     const newPages = openPages;
     newPages.push(redirectData);
     setOpenPages(newPages);
@@ -72,14 +75,14 @@ function Folder({ openPages, setOpenPages, projectData }: Props) {
           height={20}
           className="aspect-square object-scale-down"
         />
-        <div className="ml-1">{data.name}</div>
+        <div className="ml-1">{data.title}</div>
       </a>
     </li>
   ));
 
   return (
     <>
-      <li className="flex flex-col relative">
+      <li className="flex flex-col line-clamp-1 whitespace-nowrap text-ellipsis">
         <button
           onClick={toggleOpen}
           className="flex flex-row justify-start cursor-pointer pl-2 hover:bg-opacity-25 hover:bg-gray-400"

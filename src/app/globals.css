@@ -26,3 +26,7 @@ body {
     text-wrap: balance;
   }
 }
+
+.project-desc-attachment {
+  display: inline-block;
+}

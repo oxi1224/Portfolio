@@ -19,13 +19,13 @@ export function UI({ projectData, children }: Props) {
   return (
     <>
       <Search />
-      <div className="flex">
+      <div className="flex h-full">
         <Sidebar
           projectData={projectData}
           openPages={openPages}
           setOpenPages={setOpenPages}
         />
-        <div className="w-full">
+        <div className="w-full h-full">
           <Openfiles openPages={openPages} setOpenPages={setOpenPages} />
           {children}
         </div>
