@@ -30,3 +30,8 @@ body {
 .project-desc-attachment {
   display: inline-block;
 }
+
+.clear-focus:focus {
+  border: none;
+  outline: none;
+}

@@ -18,16 +18,16 @@ interface Props {
 export default async function ProjectPage({ params }: Props) {
   const data = (await preload(params.name))?.data;
   if (!data) {
-    return <div>Not found</div>;
+    return <div>Project not found</div>;
   }
   return (
-    <div className="p-3 max-h-full overflow-scroll">
+    <div className="p-3 h-full overflow-scroll">
       <div className="flex items-center flex-col">
-        <h2 className="text-center text-2xl mb-3 relative">
-          {data.title}
+        <h2 className="text-center text-2xl relative">
+          <span>{data.title}</span>
           {data.liveUrl ? (
-            <div className="group select-none bg-stone-700 bg-opacity-65 hover:bg-stone-600 cursor-pointer absolute -right-4 -top-2 text-2xs rounded-full border-2 border-stone-600 w-4 h-4 leading-relaxed">
-              <span>?</span>
+            <div className="group select-none bg-stone-700 bg-opacity-65 hover:bg-stone-600 cursor-pointer absolute -right-4 -top-1 text-2xs rounded-full border-2 border-stone-600 w-4 h-4 leading-relaxed">
+              <span>!</span>
               <div className="group absolute hidden group-hover:flex flex-row items-center top-0 left-1/2 cursor-default">
                 <div className="h-full w-3"></div>
                 <div className="bg-stone-800 p-1 whitespace-pre">
@@ -46,13 +46,19 @@ export default async function ProjectPage({ params }: Props) {
         </h2>
         {data.thumbnail ? (
           <Image
-            className="w-1/4 h-auto"
+            className="w-1/4 h-auto mt-3 mb-1"
             src={data.thumbnail}
             alt="thumbanil"
             width={500}
             height={500}
           />
         ) : null}
+        <a
+          className="text-2xs text-blue-500 visited:text-purple-600 hover:text-blue-800 focus:text-blue-800"
+          href={data.githubUrl}
+        >
+          Repository URL
+        </a>
       </div>
       <div className="flex flex-col items-center justify-center gap-2">
         {data.liveUrl ? <div></div> : null}
@@ -81,16 +87,14 @@ export default async function ProjectPage({ params }: Props) {
   );
 }
 
-const attachmentRegex = /attach:[a-zA-Z]+/;
 function parseDescription(data: ProjectData) {
   const lines = data.description.split("\n");
   const nodes: React.ReactNode[] = [];
 
   for (const i in lines) {
     const line = lines[i];
-    const separated = line.split(/[{}]/);
-    const mappedLine = separated.map((str, j) => {
-      if (!attachmentRegex.test(str)) return str;
+    const mappedLine = line.split(/[{}]/).map((str, j) => {
+      if (!/attach:[a-zA-Z]+/.test(str)) return str;
       const id = str.split(":")[1];
       const attachment = data.attachments[id];
       if (!attachment) return str;

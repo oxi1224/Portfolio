@@ -3,6 +3,7 @@
     "name": "keydrop-simulator",
     "title": "Keydrop Simulator",
     "liveUrl": "https://whatever.com/",
+    "thumbnail": "",
     "githubUrl": "https://github.com/whatever",
     "description": "Keydrop simulator is a recreation of a popular gambling website which is based around csgo skins\nMy recreation contains all the main feautres of the original website such as: skin upgrader, case opening, selling skins, account profile and multiplayer case battles",
     "featuredTag": { "name": "ts", "iconUrl": "/icons/typescript.svg" },

@@ -1,3 +1,9 @@
+"use client";
+
+import { useOpenPageContext } from "@components/UI";
+
 export default function Home() {
-  return <div>Hello world</div>;
+  const ctx = useOpenPageContext();
+  if (ctx.openPages.length > 0) return <div>{ctx.openPages[0].iconUrl}</div>;
+  return <div>hi</div>;
 }

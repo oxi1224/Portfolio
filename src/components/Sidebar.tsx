@@ -1,5 +1,6 @@
 import { ProjectData, RedirectData } from "@lib";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -13,17 +14,18 @@ export function Sidebar({ openPages, setOpenPages, projectData }: Props) {
   return (
     <>
       <ul className="flex flex-col justify-start w-1/6 h-full bg-stone-900 text-sm pt-2 select-none">
-        {/* eslint-disable-next-line max-len */}
-        {/* <li className="flex flex-row justify-start cursor-pointer pl-2 hover:bg-opacity-25 hover:bg-gray-400">
-          <Image
-            src="/icons/placeholder.png"
-            alt="redirect-icon"
-            width={20}
-            height={20}
-            className="aspect-square object-scale-down"
-          />
-          <div className="ml-1">test</div>
-        </li> */}
+        <li className="hover:bg-opacity-25 hover:bg-gray-400">
+          <Link className="pl-2  flex flex-row justify-start" href="/">
+            <Image
+              src="/icons/document.svg"
+              alt="redirect-icon"
+              width={20}
+              height={20}
+              className="aspect-square object-scale-down"
+            />
+            <div className="ml-1">Main page</div>
+          </Link>
+        </li>
         <Folder
           projectData={projectData}
           openPages={openPages}
@@ -66,7 +68,7 @@ function Folder({ openPages, setOpenPages, projectData }: Props) {
           e.preventDefault();
           addOpenPage(data);
         }}
-        className="flex flex-row justify-start cursor-pointer pl-[12.5%] hover:bg-opacity-25 hover:bg-gray-400"
+        className="clear-focus flex flex-row justify-start cursor-pointer pl-[12.5%] hover:bg-opacity-25 hover:bg-gray-400 focus:bg-opacity-25 focus:bg-gray-400"
       >
         <Image
           src={data.featuredTag.iconUrl}
@@ -85,7 +87,7 @@ function Folder({ openPages, setOpenPages, projectData }: Props) {
       <li className="flex flex-col line-clamp-1 whitespace-nowrap text-ellipsis">
         <button
           onClick={toggleOpen}
-          className="flex flex-row justify-start cursor-pointer pl-2 hover:bg-opacity-25 hover:bg-gray-400"
+          className="clear-focus flex flex-row justify-start cursor-pointer pl-2 hover:bg-opacity-25 hover:bg-gray-400 focus:bg-opacity-25 focus:bg-gray-400"
         >
           <Image
             src="/icons/caret-down.svg"

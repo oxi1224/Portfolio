@@ -23,56 +23,62 @@ export function Openfiles({ openPages, setOpenPages }: Props) {
 
   return (
     <>
-      <div className="bg-stone-900 w-full h-fit flex flex-row">
-        <Link
-          href="/"
-          className={`flex flex-row py-1 px-2 ${pathname === "/" ? "bg-stone-800" : "bg-stone-700"} bg-opacity-65 w-fit cursor-pointer  border-r border-stone-700 border-opacity-90`}
-        >
-          <Image
-            src="/icons/document.svg"
-            alt="icon"
-            width={20}
-            height={20}
-            className="aspect-square object-scale-down self-center"
-          />
-          <div className="px-1.5">Main page</div>
-        </Link>
-        {openPages.map((data, i) => (
-          <Link
-            key={i}
-            href={data.redirectUrl}
-            className={`group flex flex-row py-1 px-2 ${pathname === data.redirectUrl ? "bg-stone-800" : "bg-stone-700"} bg-opacity-65 w-fit cursor-pointer  border-r border-stone-700 border-opacity-90`}
+      <div className="bg-stone-900 w-full h-fit">
+        <ul className="flex flex-row whitespace-nowrap overflow-x-scroll">
+          <li
+            className={`py-1 px-2 ${pathname === "/" ? "bg-stone-800" : "bg-stone-700"} bg-opacity-65 border-r border-stone-700 border-opacity-90`}
           >
-            <Image
-              src={data.iconUrl}
-              alt="icon"
-              width={20}
-              height={20}
-              className="aspect-square object-scale-down self-center"
-            />
-            <div className="px-1.5">{data.title}</div>
-            <button
-              className={
-                pathname === data.redirectUrl
-                  ? ""
-                  : "opacity-0 group-hover:opacity-100"
-              }
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                closePage(data);
-              }}
+            <Link
+              href="/"
+              className="flex flex-row object-contain items-center"
             >
               <Image
-                src="/icons/close.svg"
-                alt="close"
+                src="/icons/document.svg"
+                alt="icon"
                 width={20}
                 height={20}
-                className="aspect-square object-contain self-center cursor-pointer rounded-md p-1 hover:bg-stone-600"
+                className="aspect-square self-center"
               />
-            </button>
-          </Link>
-        ))}
+              <div className="px-1.5 text-xs lg:text-base">Main page</div>
+            </Link>
+          </li>
+          {openPages.map((data, i) => (
+            <li
+              key={i}
+              className={`group py-1 px-2 ${pathname === data.redirectUrl ? "bg-stone-800" : "bg-stone-700"} bg-opacity-65 border-r w-max border-stone-700 border-opacity-90`}
+            >
+              <Link
+                href={data.redirectUrl}
+                className="group flex flex-row object-contain items-center"
+              >
+                <Image
+                  src={data.iconUrl}
+                  alt="icon"
+                  width={20}
+                  height={20}
+                  className="aspect-square self-center"
+                />
+                <div className="px-1.5 text-xs lg:text-base">{data.title}</div>
+                <button
+                  className={`${pathname === data.redirectUrl ? "" : "opacity-0 group-hover:opacity-100 group-focus:opacity-100 focus:opacity-100"}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    closePage(data);
+                  }}
+                >
+                  <Image
+                    src="/icons/close.svg"
+                    alt="close"
+                    width={20}
+                    height={20}
+                    className="aspect-square self-center cursor-pointer rounded-md p-1 hover:bg-stone-600 min-w-5 min-h-5"
+                  />
+                </button>
+              </Link>
+            </li>
+          ))}
+        </ul>
       </div>
     </>
   );
