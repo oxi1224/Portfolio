@@ -48,7 +48,7 @@ export default function ProjectDisplay({ data, i }: Props) {
               {data.title}
             </Link>
           </h3>
-          <div className="flex flex-row flex-wrap gap-1">
+          <div className="flex flex-row justify-center flex-wrap gap-1">
             {data.languageTags.map((tag, j) => (
               <div
                 key={j}

@@ -2,7 +2,7 @@ import { ProjectData } from "@lib";
 import { readFile } from "fs/promises";
 import Image from "next/image";
 
-export const preload = async (name: string) => {
+const preload = async (name: string) => {
   const file = await readFile(
     process.cwd() + "/src/data/projects.json",
     "utf-8"

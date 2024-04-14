@@ -2,7 +2,7 @@ import ProjectDisplay from "@components/ProjectDisplay";
 import { ProjectData } from "@lib";
 import { readFile } from "fs/promises";
 
-export const preload = async () => {
+const preload = async () => {
   const file = await readFile(
     process.cwd() + "/src/data/projects.json",
     "utf-8"

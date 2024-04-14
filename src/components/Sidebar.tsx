@@ -21,22 +21,22 @@ export function Sidebar({ openPages, setOpenPages, projectData }: Props) {
 
   return (
     <>
-      <ul className="flex flex-col justify-start w-1/6 h-full bg-stone-900 text-sm pt-2 select-none">
-        <li className="hover:bg-opacity-25 hover:bg-gray-400 py-0.5">
-          <Link className="pl-2  flex flex-row justify-start" href="/">
+      <ul className="flex flex-col overflow-auto min-w-[15%] justify-start w-1/6 h-full bg-stone-900 text-sm pt-2 select-none whitespace-nowrap text-ellipsis line-clamp-1">
+        <li className="hover:bg-opacity-25 hover:bg-gray-400">
+          <Link className="pl-2 flex flex-row justify-start py-0.5" href="/">
             <Image
               src="/icons/document.svg"
               alt="redirect-icon"
               width={20}
               height={20}
-              className="aspect-square object-scale-down"
+              className="aspect-square"
             />
             <div className="ml-1">Main page</div>
           </Link>
         </li>
-        <li className="hover:bg-opacity-25 hover:bg-gray-400 py-0.5">
+        <li className="hover:bg-opacity-25 hover:bg-gray-400">
           <Link
-            className="pl-2  flex flex-row justify-start"
+            className="pl-2  flex flex-row justify-start py-0.5"
             href="/projects"
             onClick={() =>
               open({
@@ -90,15 +90,12 @@ function Folder({ openPages, setOpenPages, projectData }: Props) {
   const folderContents: React.JSX.Element[] = projectData.map((data, i) => (
     <li
       key={i}
-      className="py-0.5 hover:bg-opacity-25 hover:bg-gray-400 focus:bg-opacity-25 focus:bg-gray-400"
+      className="hover:bg-opacity-25 hover:bg-gray-400 focus:bg-opacity-25 focus:bg-gray-400"
     >
       <Link
         href={"/project/" + data.name}
-        onClick={(e) => {
-          e.preventDefault();
-          addOpenPage(data);
-        }}
-        className="clear-focus flex flex-row justify-start cursor-pointer pl-[12.5%]"
+        onClick={() => addOpenPage(data)}
+        className="clear-focus flex flex-row justify-start pl-[12.5%] py-0.5"
       >
         <Image
           src={data.featuredTag.iconUrl}
