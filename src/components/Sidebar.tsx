@@ -1,7 +1,6 @@
 import { ProjectData, RedirectData } from "@lib";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 interface Props {
@@ -11,10 +10,19 @@ interface Props {
 }
 
 export function Sidebar({ openPages, setOpenPages, projectData }: Props) {
+  function open(redirectData: RedirectData) {
+    if (openPages.find((d) => d.redirectUrl === redirectData.redirectUrl)) {
+      return;
+    }
+    const newPages = openPages;
+    newPages.push(redirectData);
+    setOpenPages(newPages);
+  }
+
   return (
     <>
       <ul className="flex flex-col justify-start w-1/6 h-full bg-stone-900 text-sm pt-2 select-none">
-        <li className="hover:bg-opacity-25 hover:bg-gray-400">
+        <li className="hover:bg-opacity-25 hover:bg-gray-400 py-0.5">
           <Link className="pl-2  flex flex-row justify-start" href="/">
             <Image
               src="/icons/document.svg"
@@ -24,6 +32,28 @@ export function Sidebar({ openPages, setOpenPages, projectData }: Props) {
               className="aspect-square object-scale-down"
             />
             <div className="ml-1">Main page</div>
+          </Link>
+        </li>
+        <li className="hover:bg-opacity-25 hover:bg-gray-400 py-0.5">
+          <Link
+            className="pl-2  flex flex-row justify-start"
+            href="/projects"
+            onClick={() =>
+              open({
+                title: "Projects",
+                redirectUrl: "/projects",
+                iconUrl: "/icons/contributing.svg"
+              })
+            }
+          >
+            <Image
+              src="/icons/contributing.svg"
+              alt="redirect-icon"
+              width={20}
+              height={20}
+              className="aspect-square object-scale-down"
+            />
+            <div className="ml-1">Projects</div>
           </Link>
         </li>
         <Folder
@@ -38,7 +68,6 @@ export function Sidebar({ openPages, setOpenPages, projectData }: Props) {
 
 function Folder({ openPages, setOpenPages, projectData }: Props) {
   const [open, setOpen] = useState(false);
-  const router = useRouter();
 
   function toggleOpen() {
     setOpen(!open);
@@ -51,24 +80,25 @@ function Folder({ openPages, setOpenPages, projectData }: Props) {
       title: data.title
     };
     if (openPages.find((d) => d.redirectUrl === redirectData.redirectUrl)) {
-      router.push(redirectData.redirectUrl);
       return;
     }
     const newPages = openPages;
     newPages.push(redirectData);
     setOpenPages(newPages);
-    router.push(redirectData.redirectUrl);
   }
 
   const folderContents: React.JSX.Element[] = projectData.map((data, i) => (
-    <li key={i}>
-      <a
-        href={"/" + data.name}
+    <li
+      key={i}
+      className="py-0.5 hover:bg-opacity-25 hover:bg-gray-400 focus:bg-opacity-25 focus:bg-gray-400"
+    >
+      <Link
+        href={"/project/" + data.name}
         onClick={(e) => {
           e.preventDefault();
           addOpenPage(data);
         }}
-        className="clear-focus flex flex-row justify-start cursor-pointer pl-[12.5%] hover:bg-opacity-25 hover:bg-gray-400 focus:bg-opacity-25 focus:bg-gray-400"
+        className="clear-focus flex flex-row justify-start cursor-pointer pl-[12.5%]"
       >
         <Image
           src={data.featuredTag.iconUrl}
@@ -78,13 +108,13 @@ function Folder({ openPages, setOpenPages, projectData }: Props) {
           className="aspect-square object-scale-down"
         />
         <div className="ml-1">{data.title}</div>
-      </a>
+      </Link>
     </li>
   ));
 
   return (
     <>
-      <li className="flex flex-col line-clamp-1 whitespace-nowrap text-ellipsis">
+      <li className="flex flex-col line-clamp-1 whitespace-nowrap text-ellipsis py-0.5">
         <button
           onClick={toggleOpen}
           className="clear-focus flex flex-row justify-start cursor-pointer pl-2 hover:bg-opacity-25 hover:bg-gray-400 focus:bg-opacity-25 focus:bg-gray-400"

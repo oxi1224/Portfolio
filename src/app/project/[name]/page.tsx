@@ -21,7 +21,7 @@ export default async function ProjectPage({ params }: Props) {
     return <div>Project not found</div>;
   }
   return (
-    <div className="p-3 h-full overflow-scroll">
+    <div className="p-3 h-full w-full overflow-y-scroll">
       <div className="flex items-center flex-col">
         <h2 className="text-center text-2xl relative">
           <span>{data.title}</span>
@@ -49,13 +49,14 @@ export default async function ProjectPage({ params }: Props) {
             className="w-1/4 h-auto mt-3 mb-1"
             src={data.thumbnail}
             alt="thumbanil"
-            width={500}
+            width={1000}
             height={500}
           />
         ) : null}
         <a
           className="text-2xs text-blue-500 visited:text-purple-600 hover:text-blue-800 focus:text-blue-800"
           href={data.githubUrl}
+          target="_blank"
         >
           Repository URL
         </a>
@@ -67,12 +68,13 @@ export default async function ProjectPage({ params }: Props) {
           {data.languageTags.map((d, i) => (
             <div
               key={i}
-              className="bg-stone-500 bg-opacity-65 w-full h-full object rounded-sm"
+              className="bg-stone-500 bg-opacity-65 w-fit h-fit object rounded-sm"
             >
               <Image
-                className="aspect-square w-auto h-auto max-w-full max-h-full"
+                className="aspect-square max-w-10 max-h-10"
                 src={d.iconUrl}
                 alt={d.name}
+                title={d.name}
                 width={50}
                 height={50}
               />
@@ -80,7 +82,7 @@ export default async function ProjectPage({ params }: Props) {
           ))}
         </div>
       </div>
-      <div className="flex flex-col justify-center text-center mt-2">
+      <div className="flex flex-col justify-center text-center mt-2 pb-14">
         {parseDescription(data)}
       </div>
     </div>
@@ -100,7 +102,7 @@ function parseDescription(data: ProjectData) {
       if (!attachment) return str;
       return (
         <Image
-          className="project-desc-attachment"
+          className="project-desc-attachment object-scale-down max-w-3xl"
           key={j}
           src={attachment.url}
           alt={attachment.alt}
@@ -109,7 +111,11 @@ function parseDescription(data: ProjectData) {
         />
       );
     });
-    nodes.push(<p key={i}>{mappedLine}</p>);
+    nodes.push(
+      <p key={i} className="min-h-[1ch]">
+        {mappedLine}
+      </p>
+    );
   }
   return nodes;
 }

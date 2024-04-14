@@ -2,33 +2,60 @@
   {
     "name": "keydrop-simulator",
     "title": "Keydrop Simulator",
-    "liveUrl": "https://whatever.com/",
-    "thumbnail": "",
-    "githubUrl": "https://github.com/whatever",
-    "description": "Keydrop simulator is a recreation of a popular gambling website which is based around csgo skins\nMy recreation contains all the main feautres of the original website such as: skin upgrader, case opening, selling skins, account profile and multiplayer case battles",
-    "featuredTag": { "name": "ts", "iconUrl": "/icons/typescript.svg" },
+    "liveUrl": "https://keydrop-simulator.onrender.com/",
+    "thumbnail": "/logos/logo-kdsim.png",
+    "githubUrl": "https://github.com/oxi1224/keydrop-simulator",
+    "description": "Keydrop simulator is a recreation of a popular gambling website which is based around csgo skins.\nMy recreation contains all the main feautres of the original website such as: skin upgrader, case opening, selling skins, account profile and multiplayer case battles. It has operated for nearly half a year before being shut down amassing over that time 60 thousands registered accounts and 75 thousands page views in it's most popular day.\n\nCase Battles\n{attach:casebattle}\n\nUpgrader\n{attach:upgrader}\n\nCase opening\n{attach:case}",
+    "featuredTag": { "name": "svelte", "iconUrl": "/icons/svelte.svg" },
     "languageTags": [
-      { "name": "cpp", "iconUrl": "/icons/cpp.png" },
-      { "name": "ts", "iconUrl": "/icons/typescript.svg" }
+      { "name": "svelte", "iconUrl": "/icons/svelte.svg" },
+      { "name": "typescript", "iconUrl": "/icons/typescript.svg" },
+      { "name": "websockets", "iconUrl": "/icons/websockets.svg" },
+      { "name": "tailwindcss", "iconUrl": "/icons/tailwindcss.svg" },
+      { "name": "postgres", "iconUrl": "/icons/postgresql.svg" },
+      { "name": "prisma", "iconUrl": "/icons/prisma.svg" }
     ],
     "attachments": {
-      "one": {
-        "url": "/icons/placeholder.png",
-        "alt": "placeholder",
-        "width": 200,
-        "height": 300
+      "casebattle": {
+        "url": "/attachments/kdsim-casebattles.png",
+        "alt": "Case battle system",
+        "width": 1080,
+        "height": 720
+      },
+      "upgrader": {
+        "url": "/attachments/kdsim-upgrader.png",
+        "alt": "Upgrader system",
+        "width": 1080,
+        "height": 720
+      },
+      "case": {
+        "url": "/attachments/kdsim-case.png",
+        "alt": "Case opening system",
+        "width": 800,
+        "height": 500
       }
     }
   },
   {
     "name": "webcmd",
     "title": "WebCMD",
-    "githubUrl": "https://github.com/whatever",
-    "description": "asdasd",
+    "githubUrl": "https://github.com/oxi1224/WebCMD",
+    "description": "WebCMD is a website hosted on a custom-made server which gives you access to your computer's command prompt remotely and safely through a login system. It has many useful development features such as automatically detecting file updates, automatic serving of static files and provides an easy interface to create API routes.\n{attach:main}",
     "featuredTag": { "name": "cpp", "iconUrl": "/icons/cpp.png" },
     "languageTags": [
       { "name": "cpp", "iconUrl": "/icons/cpp.png" },
-      { "name": "ts", "iconUrl": "/icons/typescript.svg" }
-    ]
+      { "name": "html", "iconUrl": "/icons/html.svg" },
+      { "name": "css", "iconUrl": "/icons/css.svg" },
+      { "name": "javascript", "iconUrl": "/icons/javascript.svg" },
+      { "name": "windows", "iconUrl": "/icons/windows.svg" }
+    ],
+    "attachments": {
+      "main": {
+        "url": "/attachments/webcmd-main.png",
+        "alt": "Main interface",
+        "width": 1080,
+        "height": 720
+      }
+    }
   }
 ]
